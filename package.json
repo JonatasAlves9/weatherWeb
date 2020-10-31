@@ -12,7 +12,8 @@
     "date-fns": "^2.16.1",
     "next": "9.5.5",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-loading": "^2.0.3"
   },
   "devDependencies": {
     "@types/node": "^14.14.2",

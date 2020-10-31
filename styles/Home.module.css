@@ -1,152 +1,125 @@
-.container{
-  padding: 50px;
+.container {
+    padding: 50px;
 }
 
-.infoLocal{
-  padding: 20px;
-  width: 40%;
-  background-color: #fff;
-  height: auto;
-  margin-bottom: 30px;
+.infoLocal {
+    padding: 20px;
+    width: 40%;
+    background-color: #fff;
+    height: auto;
+    margin-bottom: 30px;
 }
 
-.infoWeek{
-  width: 100%;
-  height: 30vh;
-  background-color: red;
+.infoWeek {
+    width: 100%;
+    height: 30vh;
+    background-color: red;
 }
 
-.infoLocalHeadLocation{
-  float: left;
-  width: 70%;
+.infoLocalHeadLocation {
+    float: left;
+    width: 70%;
 }
 
-.infoLocalHeadInformations{
-  padding-top: 10px;
-  float: right;
-  width: 30%;
+.infoLocalHeadInformations {
+    padding-top: 10px;
+    float: right;
+    width: 30%;
 }
 
-.infoLocalHead{
-  width: 100%;
-  height: 100px;
+.infoLocalHead {
+    width: 100%;
+    height: 100px;
 }
 
-.img{
-  width: 100px;
-  float: left;
-  margin-right: 20px;
-  background-color: rgb(120, 117, 150);
+.img {
+    width: 100px;
+    float: left;
+    margin-right: 20px;
+    background-color: rgb(120, 117, 150);
 }
 
-.infoLocalTempTitle{
-  padding-top: 10px;
-  font-size: 70px;
-  color: #fff;
+.infoLocalTempTitle {
+    padding-top: 10px;
+    font-size: 70px;
+    color: #fff;
 }
 
-.infoLocalHeadTemp{
-  width: 100%;
-  height: 100px;
-  background-color: rgb(120, 117, 150);
+.infoLocalHeadTemp {
+    width: 100%;
+    height: 100px;
+    background-color: rgb(120, 117, 150);
 }
 
-.infoLocalHeadTempMaxMin{
-  margin-top: 20px;
-  margin-bottom: 180px;
+.infoLocalHeadTempMaxMin {
+    margin-top: 20px;
+    margin-bottom: 180px;
 }
 
-.infoLocalHeadTempMax{
-  background-color: rgb(120, 117, 150);
-  padding: 30px;
-  text-align: center;
-  float: left;
-  color: #fff;
-  width: 50%;
+.infoLocalHeadTempMax {
+    background-color: rgb(120, 117, 150);
+    padding: 30px;
+    text-align: center;
+    float: left;
+    color: #fff;
+    width: 50%;
 }
 
-.infoLocalHeadTempMin{
-  background-color: rgb(120, 117, 150);
-  padding: 30px;
-  width: 50%;
-  text-align: center;
-  float: right;
-  color: #fff;
+.infoLocalHeadTempMin {
+    background-color: rgb(120, 117, 150);
+    padding: 30px;
+    width: 50%;
+    text-align: center;
+    float: right;
+    color: #fff;
+}
+
+.loading {
+    left: 50%;
+    top: 50%;
+    margin-left: -350px;
+    /* Metade do valor da Largura */
+    margin-top: -200px;
+    /* Metade da valor da Altura */
+    position: absolute;
+    width: 700px;
+    /* Valor da Largura */
+    height: 400px;
+    /* Valor da Altura */
+    background: #fff;
+}
+
+.spin {
+    padding-top: 40px;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.titleLoading {
+    margin-top: 100px;
+    margin-left: 150px;
 }
 
 @media only screen and (max-width: 1350px) {
-  
-.infoLocal{
-  padding: 20px;
-  width: 100%;
-  background-color: #fff;
-  height: auto;
-  margin-bottom: 30px;
-}
-
-.infoWeek{
-  width: 100%;
-  height: 30vh;
-  background-color: red;
-}
-
-.infoLocalHeadLocation{
-  float: left;
-  width: 70%;
-}
-
-.infoLocalHeadInformations{
-  padding-top: 10px;
-  float: right;
-  width: 30%;
-}
-
-.infoLocalHead{
-  width: 100%;
-  height: 100px;
-}
-
-.img{
-  width: 100px;
-  float: left;
-  margin-right: 20px;
-  background-color: rgb(120, 117, 150);
-}
-
-.infoLocalTempTitle{
-  padding-top: 25px;
-  font-size: 50px;
-  color: #fff;
-}
-
-.infoLocalHeadTemp{
-  width: 100%;
-  height: 100px;
-  background-color: rgb(120, 117, 150);
-}
-
-.infoLocalHeadTempMaxMin{
-  margin-top: 20px;
-  margin-bottom: 180px;
-}
-
-.infoLocalHeadTempMax{
-  background-color: rgb(120, 117, 150);
-  padding: 30px;
-  text-align: center;
-  float: left;
-  color: #fff;
-  width: 50%;
-}
-
-.infoLocalHeadTempMin{
-  background-color: rgb(120, 117, 150);
-  padding: 30px;
-  width: 50%;
-  text-align: center;
-  float: right;
-  color: #fff;
-}
-
-
+    .infoLocal {
+        padding: 20px;
+        width: 100%;
+        background-color: #fff;
+        height: auto;
+        margin-bottom: 30px;
+    }
+    .infoWeek {
+        width: 100%;
+        height: 30vh;
+        background-color: red;
+    }
+    .infoLocalHeadLocation {
+        float: left;
+        width: 70%;
+    }
+    .infoLocalTempTitle {
+        padding-top: 25px;
+        font-size: 50px;
+        color: #fff;
+    }
 }

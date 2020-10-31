@@ -3,6 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import api from '../services/api'
 import { format } from 'date-fns'
+import ReactLoading from 'react-loading';
 
 function App() {
   const [location, setLocation] = useState(false);
@@ -22,6 +23,10 @@ function App() {
     setWeather(res.data);
   }
 
+  const Loading = ({ type, color }) => (
+    <ReactLoading className={styles.spin} type={type} color={color} height={'10%'} width={'10%'} />
+  );
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       getWeather(position.coords.latitude, position.coords.longitude);
@@ -29,16 +34,20 @@ function App() {
     })
   }, [])
 
-  if (location == false) {
+  if (location === false) {
     return (
       <>
+        <Loading color={"#ff56f"} type={"spin"} />
         Você precisa habilitar a localização no browser o/
       </>
     )
-  } else if (weather == false) {
+  } else if (weather === false) {
     return (
       <>
-        Carregando o clima...
+        <div className={styles.loading}>
+          <Loading color={"#ff56f"} type={"spin"} />
+          <h1 className={styles.titleLoading}>Carregando informações</h1>
+        </div>
       </>
     )
   } else {
