@@ -3,102 +3,84 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import api from '../services/api'
 import { format } from 'date-fns'
+import ReactLoading from 'react-loading';
 
-export default function Home() {
-  const [weather, setWeather] = useState({});
-  const [description, setDescription] = useState();
-  const [icon, setIcon] = useState();
-  const [humidity, setHumidity] = useState();
-  const [wind, setWind] = useState();
-  const [temp, setTemp] = useState();
-  const [maxTemp, setMaxTemp] = useState();
-  const [minTemp, setMinTemp] = useState();
+function App() {
+  const [location, setLocation] = useState(false);
+  const [weather, setWeather] = useState(false);
   const [date, setDate] = useState(new Date());
 
-  const [main, setMain] = useState();
-  const [longitude, setLongitude] = useState();
-  const [latitude, setLatitude] = useState();
-
-
-  async function showInformationsForLocation(lat, lot) {
-    try {
-      const { data } = await api.get('/weather?lat=' + lat + '&lon=' + lot + '&appid=89a8eaef589c3f138309b13362a87d12&lang=pt');
-      await setWeather(data);
-      await setDescription(data.weather[0].description)
-      await setIcon("http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png")
-      await setHumidity(data.main.humidity)
-      await setWind(data.wind.speed)
-      await setTemp(data.main.temp)
-      await setMaxTemp(data.main.temp_max)
-      await setMinTemp(data.main.temp_min)
-    } catch (error) {
-      console.log(error);
-    }
+  let getWeather = async (lat, long) => {
+    let res = await api.get("/weather", {
+      params: {
+        lat: lat,
+        lon: long,
+        appid: "89a8eaef589c3f138309b13362a87d12",
+        lang: 'pt',
+        units: 'metric'
+      }
+    });
+    setWeather(res.data);
   }
 
-  function getLocation() {
-    try {
-      window.onload = function () {
-        var startPos;
-        var geoSuccess = function (position) {
-          startPos = position;
-          setLongitude(position.coords.longitude)
-          setLatitude(position.coords.latitude)
-          showInformationsForLocation(position.coords.latitude, position.coords.longitude)
-        };
-        navigator.geolocation.getCurrentPosition(geoSuccess);
-      };
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const Loading = ({ type, color }) => (
+    <ReactLoading className={styles.spin} type={type} color={color} height={'10%'} width={'10%'} />
+  );
 
-  useEffect(async () => {
-    if (navigator.geolocation) {
-      console.log('Geolocation is supported!');
-    }
-    else {
-      console.log('Geolocation is not supported for this Browser/OS.');
-    }
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      getWeather(position.coords.latitude, position.coords.longitude);
+      setLocation(true)
+    })
+  }, [])
 
-    getLocation()
-  }, []);
-
-  return (
-    <div className={styles.container}>
-      <div className={styles.infoLocal}>
-
-        <div className={styles.infoLocalHead}>
-          <div className={styles.infoLocalHeadLocation}>
-            <h1>{weather.name}</h1>
-            <p>{format(new Date(date), 'dd MMM yyyy')}</p>
-            <p>{description}</p>
-          </div>
-          <div className={styles.infoLocalHeadInformations}>
-            <p>Humidade: {humidity}%</p>
-            <p>Vento: {wind}km/h</p>
-          </div>
+  if (location === false) {
+    return (
+      <>
+        <Loading color={"#ff56f"} type={"spin"} />
+        Você precisa habilitar a localização no browser o/
+      </>
+    )
+  } else if (weather === false) {
+    return (
+      <>
+        <div className={styles.loading}>
+          <Loading color={"#ff56f"} type={"spin"} />
+          <h1 className={styles.titleLoading}>Carregando informações</h1>
         </div>
-        <div className={styles.infoLocalHeadTemp}>
-          <img src={icon} alt="Logo" className={styles.img} />
-          <h1 className={styles.infoLocalTempTitle}>{temp}°F</h1>
-        </div>
+      </>
+    )
+  } else {
+    return (
+      <div className={styles.container}>
+        <div className={styles.infoLocal}>
 
-        <div className={styles.infoLocalHeadTempMaxMin}>
-          <div>
-
+          <div className={styles.infoLocalHead}>
+            <div className={styles.infoLocalHeadLocation}>
+              <h1>{weather.name}</h1>
+              <p>{format(new Date(date), 'dd MMM yyyy')}</p>
+              <p>{weather['weather'][0]['description']}</p>
+            </div>
+            <div className={styles.infoLocalHeadInformations}>
+              <p>Humidade: {weather['main']['humidity']}%</p>
+              <p>Vento: {weather['wind']['speed']}km/h</p>
+            </div>
           </div>
-          <h1 className={styles.infoLocalHeadTempMax}>Max. Temp<br /> {maxTemp}°F </h1>
-          <h1 className={styles.infoLocalHeadTempMin}>Min. Temp<br /> {minTemp}°F </h1>
+          <div className={styles.infoLocalHeadTemp}>
+            <img src={"http://openweathermap.org/img/wn/" + weather['weather'][0]['icon'] + "@2x.png"} alt="Logo" className={styles.img} />
+            <h1 className={styles.infoLocalTempTitle}>{weather['main']['temp']}°C</h1>
+          </div>
+
+          <div className={styles.infoLocalHeadTempMaxMin}>
+            <h1 className={styles.infoLocalHeadTempMax}>Max. Temp<br /> {weather['main']['temp_max']}°C </h1>
+            <h1 className={styles.infoLocalHeadTempMin}>Min. Temp<br /> {weather['main']['temp_min']}°C </h1>
+          </div>
 
         </div>
 
       </div>
-
-      <div className={styles.infoWeek}>
-
-      </div>
-
-    </div>
-  )
+    );
+  }
 }
+
+export default App;
